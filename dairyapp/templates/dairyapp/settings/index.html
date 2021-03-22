@@ -8,6 +8,7 @@
 
 <style>
   .myButton {
+    height: 60px;
     -moz-box-shadow: inset 0px 0px 0px 0px #caefab;
     -webkit-box-shadow: inset 0px 0px 0px 0px #caefab;
     box-shadow: inset 0px 0px 0px 0px #caefab;
@@ -57,6 +58,11 @@
 
   }
 
+  .mt {
+    margin-top: 20px;
+    margin-left:70px;
+  }
+
   tr:hover {
 
     font-weight: bolder;
@@ -70,7 +76,7 @@
 
 <div class="row">
   <h2 class="col-lg-offset-1"><strong>{{ title }}</strong></h2>
-  <div class="col-lg-10 col-lg-offset-2">
+  <div class="col-lg-3 le">
     <div class="modal fade" tabindex="-1" style="width:800px;margin:0 auto;" role="dialog" id="modal">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -83,19 +89,15 @@
 </div>
 <!--create new product ends here-->
 <!-- create new product unit starts here -->
-<div class="row " style="margin-top: 20px;">
-  <div class="col-lg-6 col-lg-offset-2">
+<div class="row" style="margin-top: 20px;">
+  <div class="col-lg-3 mt">
 
     <a href="{% url 'dairyapp:create-product-unit' %}">
-
       <button class="myButton" type="button" name="button">Create/Add new Product Unit</button>
     </a>
 
   </div>
-
-</div>
-<div class="row " style="margin-top: 20px;">
-  <div class="col-lg-10 col-lg-offset-2">
+  <div class="col-lg-3 mt">
 
     <a href="{% url 'dairyapp:add-customer' %}">
 
@@ -103,18 +105,14 @@
     </a>
 
   </div>
-</div>
-<!-- Add Animal Detail -->
-<div class="row " style="margin-top: 20px;">
-  <div class="col-lg-10 col-lg-offset-2">
+  <div class="col-lg-3 mt">
 
     <a href="{% url 'dairyapp:create-animal-detail' %}">
 
       <button class="myButton" type="button" name="button">Create/Add new Animal Detail</button>
     </a>
-
   </div>
-
+  
 </div>
 <!-- create new product unit ends here-->
 <div class="row" style="margin-top: 10px;">
@@ -182,6 +180,28 @@
         {% for unit in units %}
         <tr>
           <td>{{ unit.mProductUnit_name }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <div class="col-lg-4 col-lg-offset-1">
+    <h4><strong>Cstomer</strong></h4>
+    <p>eg.: Kg, Ltr,...</p>
+    <table class="table table-striped table-hover table-responsive">
+      <thead>
+        <tr class="bg-success">
+          <th>Customer</th>
+          <th>Contact</th>
+          <th>Register Date</th>
+        </tr>
+      </thead>
+      <tbody class="active myfont">
+        {% for cs in customer %}
+        <tr>
+          <td>{{ cs.name }}</td>
+          <td>{{ cs.contact }}</td>
+          <td>{{ cs.register | date }}</td>
         </tr>
         {% endfor %}
       </tbody>

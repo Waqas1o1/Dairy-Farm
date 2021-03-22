@@ -176,24 +176,21 @@
 
 {% block extra-js %}
 <script>
-    //script for nepali calendar date integration
+    function getRate() {
+        var value = $('#id_milk_product option:selected').index();
+        if (value == 1) {
+            document.getElementById('id_mProductSell_rate').value = 75;
+        }
+        else {
+            document.getElementById('id_mProductSell_rate').value = 100;
+        }
+    }
 
-    // $('#nepalicalendar').nepaliDatePicker({
-    //     onFocus: false,
-    //     ndpTriggerButton: true,
-    //     ndpTriggerButtonText: 'Date',
-    //     npdMonth: true,
-    //     npdYearCount: 10,
-    //     ndpTriggerButtonClass: 'btn btn-primary btn-sm',
-    //     /*disableBefore:'03/05/2075', //MM/DD/YYYY */
-    //     disableDaysAfter: '1'
-
-    // });
     $('#nepalicalendar').datetimepicker({
         timepicker: false,
         mask: true,
         format: 'Y-m-d',
-        maxDate:0
+        maxDate: 0
     }
     );
 

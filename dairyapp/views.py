@@ -1,5 +1,5 @@
 from .forms import mPurchaseForm, mStockForm, mProductSellForm, operationCostForm, testForm, dateForm, addProductForm, addProductUnitForm, addAnimaldetailForm, AssetesForm, PurchasesForm, addCustomerForm
-from .models import mPurchase, mProduct, mStock, mProductSell, mProduct, mProductUnit, test, animalDetail, customerLedger
+from .models import mPurchase, mProduct, mStock, mProductSell, mProduct, mProductUnit, test, animalDetail, customerLedger, Customer
 from .models import operationCost as operationCostModel, Assets, Purchase
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
@@ -652,7 +652,7 @@ def PurchasesReport(request):
 
 def CustoemrLagderReport(request):
     title = 'Ladger Report'
-    lagders = customerLedger.objects.all().order_by('?')[:10]
+    lagders = customerLedger.objects.all()[:10]
 
     if request.method == 'POST':
         form = dateForm(request.POST)
@@ -663,8 +663,6 @@ def CustoemrLagderReport(request):
             dateFrom = f.get('fromdate')
             dateTo = f.get('todate')
             # filter by start and stop date
-            lagders = Purchase.objects.filter(regiter__gte=dateFrom,
-                                              regiter__lte=dateTo).order_by('-sell_invoice.mProductSell_date')
 
             if not lagders:
                 messages.info(request, 'No Records Found')
@@ -685,13 +683,15 @@ def CustoemrLagderReport(request):
 def settings(request):
     title = 'Settings'
 
-    products = mProduct.objects.all()
-    units = mProductUnit.objects.all()
-    animal_dtails = animalDetail.objects.all()
+    products = mProduct.objects.all()[:10]
+    units = mProductUnit.objects.all()[:10]
+    animal_dtails = animalDetail.objects.all()[:10]
+    customer = Customer.objects.all()[:10]
     context = {
         'title': title,
         'products': products,
         'units': units,
+        'customer': customer,
         'animal_details': animal_dtails
     }
 
@@ -709,12 +709,26 @@ class newProductCreateView(PassRequestMixin, SuccessMessageMixin,
 # add Customer
 
 
-class newCutomerAddView(PassRequestMixin, SuccessMessageMixin,
-                        generic.CreateView):
-    template_name = 'dairyapp/settings/add-customer.html'
-    form_class = addCustomerForm
-    success_message = 'Success: Customer was addeds.'
-    success_url = '/settings/'
+def newCutomerAddView(request):
+    title = 'Add New Customer Details'
+
+    if request.method == 'POST':
+        form = addCustomerForm(request.POST)
+
+        if form.is_valid():
+            f = form.save(commit=False)
+            f.save()
+            return redirect('/settings')
+
+    else:
+        form = addCustomerForm()
+
+    context = {
+        'title': title,
+        'form': form
+    }
+
+    return render(request, 'dairyapp/settings/add-unit.html', context)
 
 # Create new animal detail view
 

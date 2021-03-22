@@ -44,7 +44,7 @@ urlpatterns = [
     path('settings/createproduct',
          views.newProductCreateView.as_view(), name='create-product'),
     path('settings/addCustomer',
-         views.newCutomerAddView.as_view(), name='add-customer'),
+         views.newCutomerAddView, name='add-customer'),
     path('settings/createAnimalDetails',
          views.newAnimalCreateView, name='create-animal-detail'),
     path('settings/createproductunit',

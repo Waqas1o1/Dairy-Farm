@@ -151,7 +151,8 @@ class mProductSellForm(forms.ModelForm):
         queryset=mProduct.objects.filter(),
         label='Select Milk Product',
         help_text="Choose from the list of milk products | دودھ کی مصنوعات کو منتخب کریں",
-        required=True
+        required=True,
+        widget=forms.Select(attrs={'onchange': "getRate(this);"})
     )
 
     mProductSell_date = forms.DateField(
@@ -430,25 +431,19 @@ class dateForm(forms.Form):
 
 # popup forms for settings
 
-class addCustomerForm(PopRequestMixin, CreateUpdateAjaxMixin, forms.ModelForm):
+class addCustomerForm(forms.ModelForm):
     name = forms.CharField(
-        label='Product Name',
-        max_length=30
+        label='Name'
     )
-
     address = forms.CharField(
-        label='Customer Address',
-        max_length=100
+        label='Address'
     )
-    contact = forms.CharField(
-        label='Customer Contact',
-        max_length=11,
-        min_length=11,
-        required=True
+    contact = forms.IntegerField(
+        label='Contact',
     )
 
     class Meta:
-        model = mProduct
+        model = Customer
         fields = ['name', 'address', 'contact']
 
 
