@@ -2,97 +2,224 @@
 {% load static %}
 
 {% block main-content %}
-<h1>WELCOME TO HOMEPAGE</h1>
-
-    <div class="row">
-        <div class="col-lg-3">
-            <div class="info-box blue-bg">
-              <i class="fa fa-circle"></i>
-              <div class="count">1</div>
-              <div><strong>Milk(दुध) Stock</strong></div>
-            </div>
-        </div>
-
-        <div class="col-lg-3">
-            <div class="info-box weather-bg">
-              <i class="fa fa-circle"></i>
-              <div class="count">2</div>
-              <div><strong>Ghee(घिउ) Stock</strong></div>
-            </div>
-        </div>
-
-        <div class="col-lg-3">
-            <div class="info-box blue-bg">
-              <i class="fa fa-circle"></i>
-              <div class="count">3</div>
-              <div><strong>Panir(पनिर) Stock</strong></div>
-            </div>
-        </div>
-
-    </div>
-
-    <div class="row">
-        <div class="col-lg-12">
-            <h1>TOTAL SALES ACTIVITY</h1>
-            <div id="graphcontainer" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+<h1>WELCOME TO SULTAN's DAIRY FORM
+    <br>
+    خریداری
+    پیداوار
+    بیچیں
+    آپریشن لاگت
+    رپورٹ کریں
+    ترتیبات
+    سلطان کے ڈیری فارم میں خوش آمدید
+</h1>
+<div class="row">
+    {% for p in product %}
+    <div class="col-lg-3">
+        <div class="info-box blue-bg">
+            <i class="fa fa-circle btn" id='{{p.mProduct_id}}' onclick="Fetch(this.id)"></i>
+            <div class="count">{{p.mProduct_id }}</div>
+            <div><strong>{{p.mProduct_name}}</strong></div>
         </div>
     </div>
+    {% endfor%}
+</div>
+
+<div class="row ">
+    <div class="form-inline col-md-offset-3">
+        <div class="input-group">
+            <span class="input-group-addon" id="basic-addon1">DATE</span>
+            <input type="text" class="form-control" placeholder="YYYY-MM-DD" id='from'
+                aria-describedby="basic-addon1" />
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon" id="basic-addon2">TO</span>
+            <input type="text" class="form-control" placeholder="YYYY-MM-DD" id='to' aria-describedby="basic-addon2" />
+        </div>
+        <button type="button" class="btn btn-success" onclick='FetchDate()'>Fetch</button>
+    </div>
+</div><!-- /.row -->
+<div class="row">
+    <div class="col-lg-12">
+        <h1>TOTAL SALES ACTIVITY | کل فروخت کی سرگرمی</h1>
+        <div id="graphcontainer" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+    </div>
+    <div class="col-lg-12">
+        <h1>TOTAL SALES ACTIVITY | کل فروخت کی سرگرمی</h1>
+        <div id="graphcontainer2" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+    </div>
+</div>
+</div>
 
 {% endblock %}
 {% block extra-js %}
-    <script src="{% static 'js/highcharts.js' %}"></script>
-    <script>
-    Highcharts.chart('graphcontainer', {
-    chart: {
-        type: 'area',
-        spacingBottom: 30
-    },
-    title: {
-        text: 'Sales Activity'
-    },
+<script src="{% static 'js/highcharts.js' %}"></script>
+<script>
+    var week_days = ''
+    var sells = ''
+    var buyer_names = ''
+    var buyer_sells = ''
 
-    legend: {
-        layout: 'vertical',
-        align: 'left',
-        verticalAlign: 'top',
-        x: 100,
-        y: 70,
-        floating: true,
-        borderWidth: 1,
-        backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'
-    },
-    xAxis: {
-        categories: ['Baisakh', 'Jestha', 'Ashad', 'Shrawan', 'Bhadra', 'Ashoj', 'Kartik', 'Mangsir',
-            'Poush','Magh','Falgun','Chaitra']
-    },
-    yAxis: {
-        title: {
-            text: 'Amount in 1k'
-        },
-        labels: {
-            formatter: function () {
-                return this.value;
+
+    function Fetch(id = null) {
+        $.ajax({
+            url: '/',
+            async: false,
+            data: {
+                'id': id
             }
-        }
-    },
-    tooltip: {
-        formatter: function () {
-            return '<b>' + this.series.name + '</b><br/>' +
-                this.x + ': ' + this.y;
-        }
-    },
-    plotOptions: {
-        area: {
-            fillOpacity: 0.5
-        }
-    },
-    credits: {
-        enabled: false
-    },
-    series: [{
-        name: 'Total Sales',
-        data: [56, 102, 49, 88, 77, 75, 93, 107,59,85,80,86]
-    }]
-});
-    </script>
+        }).done(function (data) {
+            d = JSON.parse(data)
+            week_days = d[0]
+            sells = d[1]
+            buyer_names = d[2]
+            buyer_sells = d[3]
+        })
+        CreateChart();
+    }
+
+    Fetch();
+
+
+    function FetchDate(id = null) {
+        var from = document.getElementById('from').value;
+        var to = document.getElementById('to').value;
+        $.ajax({
+            url: '/',
+            async: false,
+            data: {
+                'From': from,
+                'To': to,
+                'id':id
+            },
+        }).done(function (data) {
+            d = JSON.parse(data)
+            week_days = d[0]
+            sells = d[1]
+            buyer_names = d[2]
+            buyer_sells = d[3]
+            console.log(buyer_names)
+        })
+        CreateChart();
+    }
+
+
+    // DateTime Picker
+    $('#from').datetimepicker({
+        timepicker: false,
+        mask: true,
+        format: 'Y-m-d',
+        maxDate: 0
+    })
+    $('#to').datetimepicker({
+        timepicker: false,
+        mask: true,
+        format: 'Y-m-d',
+        maxDate: 0
+    })
+
+    function CreateChart() {
+        Highcharts.chart('graphcontainer', {
+            chart: {
+                type: 'area',
+                spacingBottom: 30
+            },
+            title: {
+                text: 'Totla Sale By week Days'
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'left',
+                verticalAlign: 'top',
+                x: 100,
+                y: 70,
+                floating: true,
+                borderWidth: 1,
+                backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFF'
+            },
+            xAxis: {
+                categories: week_days
+            },
+            yAxis: {
+                title: {
+                    text: 'Amount in 1k'
+                },
+                labels: {
+                    formatter: function () {
+                        return this.value;
+                    }
+                }
+            },
+            tooltip: {
+                formatter: function () {
+                    return '<b>' + this.series.name + '</b><br/>' +
+                        this.x + ': ' + this.y;
+                }
+            },
+            plotOptions: {
+                area: {
+                    fillOpacity: 0.5
+                }
+            },
+            credits: {
+                enabled: false
+            },
+            series: [{
+                name: 'Total Sales',
+                data: sells
+            }]
+        });
+
+        // Chart 2
+        Highcharts.chart('graphcontainer2', {
+            chart: {
+                type: 'area',
+                spacingBottom: 30
+            },
+            title: {
+                text: 'Totla Sale By Customer'
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'left',
+                verticalAlign: 'top',
+                x: 100,
+                y: 70,
+                floating: true,
+                borderWidth: 1,
+                backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFF'
+            },
+            xAxis: {
+                categories: buyer_names
+            },
+            yAxis: {
+                title: {
+                    text: 'Amount in 1k'
+                },
+                labels: {
+                    formatter: function () {
+                        return this.value;
+                    }
+                }
+            },
+            tooltip: {
+                formatter: function () {
+                    return '<b>' + this.series.name + '</b><br/>' +
+                        this.x + ': ' + this.y;
+                }
+            },
+            plotOptions: {
+                area: {
+                    fillOpacity: 0.5
+                }
+            },
+            credits: {
+                enabled: false
+            },
+            series: [{
+                name: 'Total Sales',
+                data: buyer_sells
+            }]
+        });
+    }
+</script>
 {% endblock %}

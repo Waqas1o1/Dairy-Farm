@@ -515,7 +515,7 @@ table tr th { color: #688a7e;}
 
 #sidebar {
 
-    width: 180px;
+    width: 190px;
 
     height: 100%;
 
@@ -528,11 +528,14 @@ table tr th { color: #688a7e;}
 
 
 .nav-collapse.collapse {
-
     display: inline;
-
 }
 
+.sidebar-menu{
+    width: auto;
+    height: 90vh;
+    overflow: auto;
+}
 
 
 ul.sidebar-menu , ul.sidebar-menu li ul.sub{
@@ -547,7 +550,7 @@ ul.sidebar-menu , ul.sidebar-menu li ul.sub{
 
 ul.sidebar-menu {
 
-    margin-top: 60px;
+    margin-top: 77px;
 
 }
 
@@ -643,7 +646,7 @@ ul.sidebar-menu li ul.sub li a:hover, ul.sidebar-menu li ul.sub li.active a {
 
 ul.sidebar-menu li{
 
-    line-height: 20px !important;
+    line-height: 5.2vh !important;
 
     /*margin-bottom: 5px;
 
@@ -1043,7 +1046,7 @@ ul.sidebar-menu li.active a i {
 
     display: inline-block;
 
-    margin-top: 60px;
+    margin-top: 70px;
 
     padding: 15px;
 
@@ -1053,20 +1056,17 @@ ul.sidebar-menu li.active a i {
 
 
 
-a.logo {
+p.logo {
 
-    font-size: 22px;
+    font-size: 18px;
 
-    font-weight: 300;
-
-    color: #fed189;
-
-    float: left;
-
-    margin-top: 15px;
+    font-weight: 500;
 
     text-transform: uppercase;
 
+}
+p.logo:hover{
+    color: #009da7;
 }
 
 
@@ -1812,29 +1812,13 @@ div[data-role="editor-toolbar"] {
 =================================================================== */
 
 .info-box {
-
-<<<<<<< HEAD
-  min-height: 140px;
-
+  min-height: 0;
   margin-bottom: 30px;
-
   padding: 20px;
-=======
-  min-height: auto;
-
-  margin-bottom: 30px;
-
-  padding: 10px;
->>>>>>> remotemaster
-
   color: white;
-
   -webkit-box-shadow: inset 0 0 1px 1px rgba(255, 255, 255, 0.35), 0 3px 1px -1px rgba(0, 0, 0, 0.1);
-
   -moz-box-shadow: inset 0 0 1px 1px rgba(255, 255, 255, 0.35), 0 3px 1px -1px rgba(0, 0, 0, 0.1);
-
   box-shadow: inset 0 0 1px 1px rgba(255, 255, 255, 0.35), 0 3px 1px -1px rgba(0, 0, 0, 0.1);
-
 }
 
 .info-box i {
@@ -2399,11 +2383,9 @@ div[data-role="editor-toolbar"] {
 
   box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.1);
 
-
-
 }
 
-}
+
 
 .panel.panel-default.panel-heading {
 
@@ -8021,6 +8003,7 @@ ul.amounts li {
 
     margin-bottom: 15px;
 
+    margin-left :0 !important;
 }
 
 

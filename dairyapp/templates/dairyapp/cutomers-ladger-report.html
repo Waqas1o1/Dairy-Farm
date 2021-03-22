@@ -13,7 +13,7 @@
 <!-- Purchase Report Here -->
 <div class="row">
 
-    <div class="col-lg-4 col-lg-offset-1">
+    <div class="col-lg-4 col-lg-offset-1"   >
         <h2><strong>{{ title }}</strong></h2>
         <form class="form-horizontal" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
@@ -65,8 +65,6 @@
             </div>
             {% endfor %}
 
-
-
             <div class="form-group">
                 <div class="col-sm-12" onclick="if (!confirm('Are you sure?')) { return false }">
                     <button type="submit" class="btn btn-primary btn-block">
@@ -74,10 +72,6 @@
                     </button>
                 </div>
             </div>
-
-
-
-
         </form>
 
     </div>
@@ -102,27 +96,31 @@
         <table id="tableData" class="display nowrap" style="width:100%;">
             <thead>
                 <tr class="bg-success">
-                    <th>Date</th>
-                    <th>Seller</th>
-                    <th>Milk Type</th>
-                    <th>QTY (ltr)</th>
+                    <th>Registered Date</th>
+                    <th>Product</th>
+                    <th>Customer Name</th>
+                    <th>QTY</th>
                     <th>Rate</th>
-                    <th>Total Amount (NRs)</th>
+                    <th>Payment Method</th>
+                    <th>Payment (Rs)</th>
+                    <th>Payment Recives (Rs)</th>
                 </tr>
             </thead>
 
             <tbody class="active">
 
 
-                {% for purchase in milk %}
+                {% for lg in Ladgers %}
                 <tr>
                     <!-- template tag to convert AD into BS -->
-                    <td>{{ purchase.mPurchase_date |date:"Y-m-d" }}</td>
-                    <td>{{purchase.seller }}</td>
-                    <td>{{purchase.mPurchase_product}}</td>
-                    <td>{{purchase.mPurchase_qty}}</td>
-                    <td>{{purchase.mPurchase_rate}}</td>
-                    <td>{{ purchase.mPurchase_total }}</td>
+                    <td>{{ lg.sell_invoice.mProductSell_date |date:"Y-m-d" }}</td>
+                    <td>{{lg.sell_invoice.milk_product}}</td>
+                    <td>{{lg.sell_invoice.buyer_name }}</td>
+                    <td>{{lg.sell_invoice.mProductSell_qty }}</td>
+                    <td>{{lg.sell_invoice.mProductSell_rate}}</td>
+                    <td>{{lg.sell_invoice.mProductSell_paymentMethod}}</td>
+                    <td>{{lg.sell_invoice.mProductSell_amount }}</td>
+                    <td>{{lg.payment_recived }}</td>
                 </tr>
 
                 {% endfor %}
@@ -135,29 +133,6 @@
 
 {% block extra-js %}
 <script>
-    // $('#nepalicalendar').nepaliDatePicker({
-    //         onFocus:false,
-    //         ndpTriggerButton: true,
-    //         ndpTriggerButtonText: 'Date',
-    //         npdMonth:true,
-    //         npdYearCount:10,
-    //         ndpTriggerButtonClass: 'btn btn-primary btn-sm',
-    //         /*disableBefore:'03/05/2075', //MM/DD/YYYY */
-    //         disableDaysAfter:'1'
-
-    //     });
-
-    // $('#nepalicalendar2').nepaliDatePicker({
-    //         onFocus:false,
-    //         ndpTriggerButton: true,
-    //         ndpTriggerButtonText: 'Date',
-    //         npdMonth:true,
-    //         npdYearCount:10,
-    //         ndpTriggerButtonClass: 'btn btn-primary btn-sm',
-    //         /*disableBefore:'03/05/2075', //MM/DD/YYYY */
-    //         disableDaysAfter:'1'
-
-    //     });
     $('#nepalicalendar').datetimepicker({
         timepicker: false,
         mask: true,

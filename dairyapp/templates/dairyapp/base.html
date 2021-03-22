@@ -1,168 +1,183 @@
-
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 
-     <!-- Bootstrap CSS -->
-    <link href="{% static 'css/bootstrap.min.css'%}" rel="stylesheet">
-    <!-- bootstrap theme -->
-    <link href="{% static 'css/bootstrap-theme.css'%}" rel="stylesheet">
-    <!--external css-->
-    <!-- font icon -->
+  <!-- Bootstrap CSS -->
+  <link href="{% static 'css/bootstrap.min.css'%}" rel="stylesheet">
+  <!-- bootstrap theme -->
+  <link href="{% static 'css/bootstrap-theme.css'%}" rel="stylesheet">
+  <!--external css-->
+  <!-- font icon -->
 
-    <link href="{%  static 'css/font-awesome.min.css' %}" rel="stylesheet" />
-    <!-- Custom styles -->
-    <!--<link rel="stylesheet" href="css/fullcalendar.css">-->
-    <link href="{%  static 'css/widgets.css' %}" rel="stylesheet">
-    <link href="{% static 'css/style.css' %}" rel="stylesheet">
-    <link href="{%  static 'css/style-responsive.css' %}" rel="stylesheet" />
-    <link href="{% static 'css/xcharts.min.css' %}" rel=" stylesheet">
-    <link href="{%  static 'css/jquery-ui-1.10.4.min.css' %}" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/nepali.datepicker.v2.2.min.css' %}" />
-    <link rel="stylesheet" type="text/css" href="{% static 'css/datatables.min.css' %}"/>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/jquery.dataTables.min.css' %}"/>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/buttons.dataTables.min.css' %}"/>
+  <!-- <link href="{%  static 'css/font-awesome.min.css' %}" rel="stylesheet" /> -->
+  <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+  <!-- Custom styles -->
+  <!--<link rel="stylesheet" href="css/fullcalendar.css">-->
+  <link href="{%  static 'css/widgets.css' %}" rel="stylesheet">
+  <link href="{% static 'css/style.css' %}" rel="stylesheet">
+  <link href="{%  static 'css/style-responsive.css' %}" rel="stylesheet" />
+  <link href="{% static 'css/xcharts.min.css' %}" rel=" stylesheet">
+  <link href="{%  static 'css/jquery-ui-1.10.4.min.css' %}" rel="stylesheet">
+  <!-- <link rel="stylesheet" type="text/css" href="{% static 'css/nepali.datepicker.v2.2.min.css' %}" /> -->
+  <link rel="stylesheet" type="text/css" href="{% static 'css/datatables.min.css' %}" />
+  <link rel="stylesheet" type="text/css" href="{% static 'css/jquery.dataTables.min.css' %}" />
+  <link rel="stylesheet" type="text/css" href="{% static 'css/buttons.dataTables.min.css' %}" />
+
+  <!-- Auto Complete -->
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+  <script src="{% static 'js/jquery.js' %}"></script>
+
+  <script src="{% static 'js/jquery-ui-1.10.4.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/jquery-ui-1.9.2.custom.min.js' %}"></script>
+  <!-- Date Time Picker -->
+  <!-- <script type="text/javascript" src="{% static 'js/nepali.datepicker.v2.2.min.js' %}"></script> -->
+  <script type="text/javascript" src="{% static 'js/datetimepicker/jquery.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/datetimepicker/jquery.datetimepicker.full.js' %}"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+  <!-- CSS for Date time -->
+  <link rel="stylesheet" type="text/css" href="{% static 'js/datetimepicker/jquery.datetimepicker.min.css' %}" />
+
+  <script type="text/javascript" src="{% static 'js/jquery.dataTables.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/dataTables.buttons.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/buttons.print.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/buttons.html5.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/jszip.min.js' %}"></script>
+  {% block extra-css %}
 
 
-    <script src="{% static 'js/jquery.js' %}"></script>
+  {% endblock %}
 
-    <script src="{% static 'js/jquery-ui-1.10.4.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/jquery-ui-1.9.2.custom.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/nepali.datepicker.v2.2.min.js' %}"></script>
-
-
-    <script type="text/javascript" src="{% static 'js/jquery.dataTables.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/dataTables.buttons.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/buttons.print.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/buttons.html5.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/jszip.min.js' %}"></script>
-    {% block extra-css %}
-
-
-    {% endblock %}
-
-    <title>{{ title }}</title>
+  <title>{{ title }}</title>
 </head>
+
 <body>
 
-     <!-- container section start -->
-    <section id="container" class="">
+  <!-- container section start -->
+  <section id="container">
 
-        <header class="header dark-bg">
+    <header class="header dark-bg">
+      <!--logo start-->
+      <div class="row">
+        <div class="col-lg-12 text-center">
+          <p class="logo btn text-success" aria-controls="sidebar" data-toggle="collapse" data-target="#sidebar"
+            aria-expanded="true">
+            SULTAN DAIRY FROM |
+            سلطان ڈیری فارم
+          </p>
+          <h3 style="margin-top: 0;">Today date:{{ bs_date }} </h3>
+        </div>
+      </div>
+      <!--logo end-->
+    </header>
+    <!--header end-->
 
+    <!--sidebar start-->
+    <aside>
+      <div id="sidebar" class="nav-collapse collapse" aria-expanded="false" style="height: 0px;">
+        <!-- sidebar menu start-->
+        <ul class="sidebar-menu">
+          <li class="active">
+            <a class="" href="{% url 'dairyapp:index' %}">
+              <i class="fa fa-home"></i>
+              <span>Dashboard</span>
+            </a>
+          </li>
 
-          <!--logo start-->
-          <div class="row">
-              <div class="col-lg-8">
-                   <a href="#" class="logo">DAIRY RECORD MANAGEMENT AND PRODUCTION DATA ANALYTICS SYSTEM</a>
-              </div>
-               <div class="col-lg-4">
-                      <h3>आजको मिती:{{ bs_date   }} </h3>
-              </div>
-          </div>
+          <!-- <li class="active" style="pointer-events: none;">
+            <div class="info-box blue-bg">
+              <a class="" href="#">
+                <span>MILK</span>
+              </a>
+            </div>
+          </li> -->
 
-          <!--logo end-->
+          <li class="active">
+            <a class="" href="{% url 'dairyapp:milk-purchase' %}">
+              <i class="fa fa-signal"></i>
+              <span>Purchase</span>
+            </a>
+          </li>
+          <li class="active">
+            <a class="" href="{% url 'dairyapp:add-milk-products' %}">
+              <i class="fa fa-dropbox"></i>
+              <span>Production </span>
+            </a>
+          </li>
 
+          <li class="active">
+            <a class="" href="{% url 'dairyapp:sell-milk-products' %}">
+              <i class="fa fa-money"></i>
+              <span>Sell </span>
+            </a>
+          </li>
+          <li class="active">
+            <a class="" href="{% url 'dairyapp:operation-cost' %}">
+              <i class="fa fa-dollar"></i>
+              <span>Operation Cost</span>
+            </a>
+          </li>
 
-        </header>
-        <!--header end-->
+          <li class="active">
+            <a class="" href="{% url 'dairyapp:assets-cost' %}">
+              <i class="fa fa-caret-square-o-up" aria-hidden="true"></i>
+              <span>Assets </span>
+            </a>
+          </li>
+          <li class="active">
+            <a class="" href="{% url 'dairyapp:purchases-cost' %}">
+              <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+              <span>Purchase </span>
+            </a>
+          </li>
 
-        <!--sidebar start-->
-        <aside>
-          <div id="sidebar" class="nav-collapse ">
-            <!-- sidebar menu start-->
-            <ul class="sidebar-menu">
-              <li class="active">
-                    <a class="" href="{% url 'dairyapp:index' %}">
-                          <i class="fa fa-home"></i>
-                          <span>Dashboard गृह पृष्‍ठ </span>
-                      </a>
-              </li>
+          </li>
+          <li class="active">
+            <a class="" href="{% url 'dairyapp:report' %}">
+              <i class="fa fa-bar-chart-o"></i>
+              <span>Report</span>
+            </a>
+          </li>
+          <li class="active">
+            <a class="" href="{% url 'dairyapp:settings' %}">
+              <i class="fa fa-share"></i>
+              <span>Settings</span>
+            </a>
+          </li>
+        </ul>
 
-              <li class="active" style="pointer-events: none;">
-                  <div class="info-box blue-bg">
-                      <a class="" href="#">
-                          <span>MILK दुध</span>
-                      </a>
-                  </div>
-              </li>
+        <!-- sidebar menu end-->
+      </div>
+    </aside>
+    <!--sidebar end-->
 
-              <li class="active">
-                <a class="" href="{% url 'dairyapp:milk-purchase' %}">
-                      <i class="fa-signal"></i>
-                      <span>Purchase खरिद</span>
-                  </a>
-              </li>
-              <li class="active">
-                <a class="" href="{% url 'dairyapp:add-milk-products' %}">
-                      <i class="fa-dropbox"></i>
-                      <span>Production उत्पादन</span>
-                </a>
-              </li>
+    <!--main content start-->
+    <section id="main-content">
+      <section class="wrapper">
+        {% block main-content %}
 
-              <li class="active">
-                <a class="" href="{% url 'dairyapp:sell-milk-products' %}">
-                      <i class="fa fa-money"></i>
-                      <span>Sell बिक्री</span>
-                  </a>
-              </li>
-              <li class="active">
-                <a class="" href="{% url 'dairyapp:operation-cost' %}">
-                      <i class="fa fa-dollar"></i>
-                      <span>Operation Cost</span>
-                  </a>
-              </li>
-
-              </li>
-              <li class="active">
-                <a class="" href="{% url 'dairyapp:report' %}">
-                      <i class="fa fa-bar-chart-o"></i>
-                      <span>Report विवरण</span>
-                  </a>
-              </li>
-
-
-
-
-
-
-              <li class="active">
-                <a class="" href="{% url 'dairyapp:settings' %}">
-                      <i class="fa fa-share"></i>
-                      <span>Settings</span>
-                  </a>
-              </li>
-            </ul>
-
-              <!-- sidebar menu end-->
-          </div>
-
-        </aside>
-        <!--sidebar end-->
-
-        <!--main content start-->
-        <section id="main-content">
-            <section class="wrapper">
-                {% block main-content %}
-
-                {% endblock %}
-            </section>
-        </section>
-
+        {% endblock %}
+      </section>
     </section>
 
-    <!-- bootstrap -->
-    <script src="{% static 'js/bootstrap.min.js' %}"></script>
-    <!-- nice scroll -->
-    <script src="{% static 'js/jquery.scrollTo.min.js' %}"></script>
-    <script src="{% static 'js/jquery.nicescroll.js' %}" type="text/javascript"></script>
-    {% block extra-js %}
+  </section>
 
-    {% endblock %}
+  <!-- bootstrap -->
+  <script src="{% static 'js/bootstrap.min.js' %}"></script>
+  <!-- nice scroll -->
+  <script src="{% static 'js/jquery.scrollTo.min.js' %}"></script>
+  <script src="{% static 'js/jquery.nicescroll.js' %}" type="text/javascript"></script>
+
+  {% block extra-js %}
+
+  {% endblock %}
 </body>
+
 </html>

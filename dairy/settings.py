@@ -58,7 +58,7 @@ ROOT_URLCONF = 'dairy.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['./templates',],
+        'DIRS': ['./templates', ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -68,9 +68,9 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'dairyapp.sendBS.sendBS',
             ],
-            ## registering a template tag
+            # registering a template tag
             'libraries':{
-                'dateconvert_tags':'dairyapp.templatetags.dateconvert_tags',
+                'dateconvert_tags': 'dairyapp.templatetags.dateconvert_tags',
             }
         },
     },
@@ -79,19 +79,12 @@ TEMPLATES = [
 WSGI_APPLICATION = 'dairy.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/dev/ref/settings/#databases
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'OPTIONS': {
-            'read_default_file': '/etc/mysql/my.cnf',
-        },
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
-
 # Password validation
 # https://docs.djangoproject.com/en/dev/ref/settings/#auth-password-validators
 
@@ -122,14 +115,14 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = False ##setting this to false stores datetime in localtimezone
+USE_TZ = False  # setting this to false stores datetime in localtimezone
 
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/dev/howto/static-files/
 
 STATIC_URL = '/static/'
-##path for static files
-STATICFILES_DIRS=[
-    os.path.join(BASE_DIR,'static'),
+# path for static files
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
 ]

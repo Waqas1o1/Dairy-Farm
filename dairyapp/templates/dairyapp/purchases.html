@@ -1,20 +1,24 @@
 {% extends 'dairyapp/base.html' %}
 {% load static %}
-{% load dateconvert_tags %}
 {% load widget_tweaks %}
 
 {% block extra-css %}
 
 <style>
+    .myclass {
+        font-size: large;
+    }
 
-
+    .myclass:hover {
+        font-weight: bold;
+    }
 </style>
 {% endblock %}
 
 {% block main-content %}
 <div class="row">
     <div class="col-lg-4 col-lg-offset-1">
-        <h2><strong>TEST</strong></h2>
+        <h2><strong>EXPENCES</strong></h2>
 
         <form class="form-horizontal" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
@@ -29,7 +33,6 @@
             <div class="alert alert-danger" role="alert">
                 {% for error in form.non_field_errors %}
                 {{ error }}
-
                 {% endfor %}
             </div>
             {% endif %}
@@ -66,8 +69,6 @@
             </div>
             {% endfor %}
 
-
-
             <div class="form-group">
                 <div class="col-sm-12" onclick="if (!confirm('Do you want to confirm?')) { return false }">
                     <button type="submit" class="btn btn-primary btn-block"><strong>Submit</strong></button>
@@ -84,9 +85,83 @@
                 {% endfor %}
             </ul>
             {% endif %}
+
+
     </div>
 
+    <div class="col-lg-7">
+        <h2><strong>Showing top 10 Purchases</strong></h2>
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr class="info">
+                    <th>Date</th>
+                    <th>Particulars</th>
+                    <th>Quanity</th>
+                    <th> Rate</th>
+                    <th>Total Amount (Rs)</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody class="active">
+                {% for p in purchases %}
+                <tr class="myclass">
+                    <td>{{ p.date |date:"Y-m-d" }}</td>
+                    <td>{{ p.particular }}</td>
+                    <td>{{ p.qty }}</td>
+                    <td>{{ p.rate }}</td>
+                    <td>{{ p.amount }}</td>
+                     <td onclick="if (!confirm('Do you want to confirm?')) { return false }">
+                        <a href="{% url 'dairyapp:delete-purchase' id=p.purchase_id %}"
+                            class="btn btn-primary">
+                            <strong>Delete</strong>
+                        </a>
+                    </td> 
+                </tr>
+                {% endfor %}
 
+            </tbody>
+        </table>
+
+        {% if purchases.has_other_pages %}
+        <ul class="pagination">
+            {% if purchases.has_previous %}
+            <li>
+                <a href="?page={{ purchases.previous_page_number }}">&laquo;</a>
+            </li>
+            {% else %}
+            <li class="disabled">
+                <span>&laquo;</span>
+            </li>
+            {% endif %}
+            {% for i in purchases.paginator.page_range %}
+            {% if purchases.number == i %}
+            <li class="active">
+                <span>{{ i }}
+                    <span class="sr-only">(current)</span>
+                </span>
+            </li>
+            {% else %}
+            <li>
+                <a href="?page={{ i }}">{{ i }}</a>
+            </li>
+            {% endif %}
+            {% endfor %}
+
+            {% if purchases.has_next %}
+            <li>
+                <a href="?page={{ purchases.next_page_number }}">&raquo;</a>
+            </li>
+            {% else %}
+            <li class="disabled">
+                <span>&raquo;</span>
+            </li>
+            {% endif %}
+
+        </ul>
+        {% endif %}
+
+
+    </div>
 
 </div>
 
@@ -96,23 +171,11 @@
 {% block extra-js %}
 <script>
 
-    // $('#nepalicalendar').nepaliDatePicker({
-    //     onFocus:false,
-    //     ndpTriggerButton: true,
-    //     ndpTriggerButtonText: 'Date',
-    //     npdMonth:true,
-    //     npdYearCount:10,
-    //     ndpTriggerButtonClass: 'btn btn-primary btn-sm',
-    //     /*disableBefore:'03/05/2075', //MM/DD/YYYY */
-    //     disableDaysAfter:'1'
-
-    // });
     $('#nepalicalendar').datetimepicker({
         timepicker: false,
         mask: true,
         format: 'Y-m-d'
     }
     );
-
 </script>
 {% endblock %}
